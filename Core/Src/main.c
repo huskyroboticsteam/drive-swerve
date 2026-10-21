@@ -688,7 +688,7 @@ static void MX_GPIO_Init(void)
                           |INLC_S_Pin|INHA_S_Pin|INHB_S_Pin|INHC_S_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, SW0E7_Pin|CAN_LED_Pin|DBG_LED_Pin|ERR_LED_Pin
+  HAL_GPIO_WritePin(GPIOE, SW3_Pin|CAN_LED_Pin|DBG_LED_Pin|ERR_LED_Pin
                           |INHA_D_Pin|INHB_D_Pin|INHC_D_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -725,9 +725,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SW0E7_Pin CAN_LED_Pin DBG_LED_Pin ERR_LED_Pin
+  /*Configure GPIO pins : SW3_Pin CAN_LED_Pin DBG_LED_Pin ERR_LED_Pin
                            INHA_D_Pin INHB_D_Pin INHC_D_Pin */
-  GPIO_InitStruct.Pin = SW0E7_Pin|CAN_LED_Pin|DBG_LED_Pin|ERR_LED_Pin
+  GPIO_InitStruct.Pin = SW3_Pin|CAN_LED_Pin|DBG_LED_Pin|ERR_LED_Pin
                           |INHA_D_Pin|INHB_D_Pin|INHC_D_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

@@ -458,7 +458,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     PA9     ------> TIM1_CH2
     PA10     ------> TIM1_CH3
     */
-    GPIO_InitStruct.Pin = Hall_A_S_Pin|Hall_B_S_Pin|Hall_C_S_Pin;
+    GPIO_InitStruct.Pin = Hall_A_Swer_Pin|Hall_B_Swer_Pin|Hall_C_Swer_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -483,7 +483,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     PC7     ------> TIM3_CH2
     PC8     ------> TIM3_CH3
     */
-    GPIO_InitStruct.Pin = Hall_A_D_Pin|Hall_B_D_Pin|Hall_C_D_Pin;
+    GPIO_InitStruct.Pin = Hall_A_Drive_Pin|Hall_B_Drive_Pin|Hall_C_Drive_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -518,7 +518,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     PA9     ------> TIM1_CH2
     PA10     ------> TIM1_CH3
     */
-    HAL_GPIO_DeInit(GPIOA, Hall_A_S_Pin|Hall_B_S_Pin|Hall_C_S_Pin);
+    HAL_GPIO_DeInit(GPIOA, Hall_A_Swer_Pin|Hall_B_Swer_Pin|Hall_C_Swer_Pin);
 
     /* USER CODE BEGIN TIM1_MspDeInit 1 */
 
@@ -537,7 +537,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     PC7     ------> TIM3_CH2
     PC8     ------> TIM3_CH3
     */
-    HAL_GPIO_DeInit(GPIOC, Hall_A_D_Pin|Hall_B_D_Pin|Hall_C_D_Pin);
+    HAL_GPIO_DeInit(GPIOC, Hall_A_Drive_Pin|Hall_B_Drive_Pin|Hall_C_Drive_Pin);
 
     /* USER CODE BEGIN TIM3_MspDeInit 1 */
 
