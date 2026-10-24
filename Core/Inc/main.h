@@ -147,14 +147,14 @@ void Error_Handler(void);
 #define ABS_Swer_Encoder_GPIO_Port GPIOD
 #define VCP_RX_Pin GPIO_PIN_2
 #define VCP_RX_GPIO_Port GPIOD
-#define A_Swer_Encoder_Pin GPIO_PIN_4
-#define A_Swer_Encoder_GPIO_Port GPIOB
-#define B_Swer_Encoder_Pin GPIO_PIN_5
-#define B_Swer_Encoder_GPIO_Port GPIOB
-#define INHA_S_Pin GPIO_PIN_6
+#define INHA_S_Pin GPIO_PIN_4
 #define INHA_S_GPIO_Port GPIOB
-#define INHB_S_Pin GPIO_PIN_7
+#define INHB_S_Pin GPIO_PIN_5
 #define INHB_S_GPIO_Port GPIOB
+#define A_Swerv_Encoder_Pin GPIO_PIN_6
+#define A_Swerv_Encoder_GPIO_Port GPIOB
+#define B_Swerv_Encoder_Pin GPIO_PIN_7
+#define B_Swerv_Encoder_GPIO_Port GPIOB
 #define INHC_S_Pin GPIO_PIN_9
 #define INHC_S_GPIO_Port GPIOB
 
