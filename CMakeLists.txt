@@ -47,6 +47,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Libraries/CAN26/CANPacket.c
     Libraries/CAN26/Ports/PortSTM32g4xx.c
+    Core/Src/rev_throughbore_encoder.c
+    Core/Src/hall_encoders.c
 )
 
 # Add include paths
