@@ -96,6 +96,8 @@ void Error_Handler(void);
 #define SW2_GPIO_Port GPIOB
 #define INLC_D_Pin GPIO_PIN_1
 #define INLC_D_GPIO_Port GPIOB
+#define ABS_Swer_Encoder_Pin GPIO_PIN_2
+#define ABS_Swer_Encoder_GPIO_Port GPIOB
 #define SW3_Pin GPIO_PIN_7
 #define SW3_GPIO_Port GPIOE
 #define CAN_LED_Pin GPIO_PIN_8
@@ -144,8 +146,6 @@ void Error_Handler(void);
 #define INLB_D_GPIO_Port GPIOC
 #define VCP_TX_Pin GPIO_PIN_12
 #define VCP_TX_GPIO_Port GPIOC
-#define ABS_Swer_Encoder_Pin GPIO_PIN_1
-#define ABS_Swer_Encoder_GPIO_Port GPIOD
 #define VCP_RX_Pin GPIO_PIN_2
 #define VCP_RX_GPIO_Port GPIOD
 #define INHA_S_Pin GPIO_PIN_4
