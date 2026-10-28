@@ -36,6 +36,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define HALL_DRIVE_TIM (&htim3)
+#define HALL_SWERV_TIM (&htim1)
 
 /* USER CODE END PM */
 
@@ -121,6 +123,24 @@ int main(void)
   MX_USART3_UART_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+  Hall_Init(HALL_ID_DRIVE, (HallConfig_t){
+            .timer = HALL_DRIVE_TIM,
+            .a_gpio = Hall_A_Drive_GPIO_Port,
+            .a_gpio_pin = Hall_A_Drive_Pin,
+            .b_gpio = Hall_B_Drive_GPIO_Port,
+            .b_gpio_pin = Hall_B_Drive_Pin,
+            .c_gpio = Hall_C_Drive_GPIO_Port,
+            .c_gpio_pin = Hall_C_Drive_Pin
+  });
+  Hall_Init(HALL_ID_SWERVE, (HallConfig_t){
+            .timer = HALL_SWERV_TIM,
+            .a_gpio = Hall_A_Swer_GPIO_Port,
+            .a_gpio_pin = Hall_A_Swer_Pin,
+            .b_gpio = Hall_B_Swer_GPIO_Port,
+            .b_gpio_pin = Hall_B_Swer_Pin,
+            .c_gpio = Hall_C_Swer_GPIO_Port,
+            .c_gpio_pin = Hall_C_Swer_Pin
+  });
 
   /* USER CODE END 2 */
 
