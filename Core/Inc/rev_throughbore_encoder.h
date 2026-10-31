@@ -7,6 +7,8 @@ typedef struct {
     TIM_HandleTypeDef *htim; // Pointer to the timer handle
     int32_t position;        // Total accumulated position with overflow
     uint32_t last_counter;   // Previous hardware counter value
+    uint32_t last_time_read;
+    uint16_t delta_time;
 } Encoder_t;
 
 float PWM_To_Angle(uint32_t raw_duty, uint32_t min_duty, uint32_t max_duty, float min_angle, float max_angle);

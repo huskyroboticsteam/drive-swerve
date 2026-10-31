@@ -5,6 +5,7 @@ void Quadrature_EncoderInit(Encoder_t *enc, TIM_HandleTypeDef *htim) {
     enc->htim = htim;
     enc->position = 0; // change to PWM position?
     enc->last_counter = 0;
+    enc->last_time_read = 0;
 
     // Start the Encoder interface in HAL
     HAL_TIM_Encoder_Start(enc->htim, TIM_CHANNEL_4);
@@ -12,15 +13,26 @@ void Quadrature_EncoderInit(Encoder_t *enc, TIM_HandleTypeDef *htim) {
 
 // Call this more than once every 4 rotations
 void Quadrature_EncoderUpdate(Encoder_t *enc) {
+
     // 1. Get the current 16-bit or 32-bit hardware counter value
     int16_t current_counter = __HAL_TIM_GET_COUNTER(enc->htim); //might be 16 bits not sure
+    uint32_t current_tick = HAL_GetTick();
+
     __HAL_TIM_SET_COUNTER(enc->htim,  0);
+
+    int32_t delta_time = current_tick - enc->last_time_read;
 
     // 2. Accumulate into a 32-bit signed integer
     enc->position += current_counter;
 
     // 3. Save the current counter for the next update
     enc->last_counter = current_counter;
+    enc->last_time_read = current_tick;
+    enc->delta_time = delta_time;
+}
+
+void Quadrature_GetVelocity(Encoder_t *enc) {
+	float speed = (float) (enc->last_counter) / (float) (enc->delta_time);
 }
 
 
