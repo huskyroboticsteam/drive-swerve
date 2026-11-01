@@ -31,8 +31,9 @@ void Quadrature_EncoderUpdate(Encoder_t *enc) {
     enc->delta_time = delta_time;
 }
 
-void Quadrature_GetVelocity(Encoder_t *enc) {
+float Quadrature_GetVelocity(Encoder_t *enc) {
 	float speed = (float) (enc->last_counter) / (float) (enc->delta_time);
+	return speed;
 }
 
 

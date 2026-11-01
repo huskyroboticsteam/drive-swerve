@@ -414,7 +414,7 @@ ProjectManager.ToolChainLocation=
 ProjectManager.UAScriptAfterPath=
 ProjectManager.UAScriptBeforePath=
 ProjectManager.UnderRoot=false
-ProjectManager.functionlistsort=1-SystemClock_Config-RCC-false-HAL-false,2-MX_GPIO_Init-GPIO-false-HAL-true,3-MX_FDCAN1_Init-FDCAN1-false-HAL-true,4-MX_ADC2_Init-ADC2-false-HAL-true,5-MX_ADC1_Init-ADC1-false-HAL-true,6-MX_ADC3_Init-ADC3-false-HAL-true,7-MX_SPI1_Init-SPI1-false-HAL-true,8-MX_TIM1_Init-TIM1-false-HAL-true,9-MX_TIM3_Init-TIM3-false-HAL-true,10-MX_UART5_Init-UART5-false-HAL-true,11-MX_USART3_UART_Init-USART3-false-HAL-true,12-MX_TIM4_Init-TIM4-false-HAL-true,13-MX_TIM5_Init-TIM5-false-HAL-true
+ProjectManager.functionlistsort=1-SystemClock_Config-RCC-false-HAL-false,2-MX_GPIO_Init-GPIO-false-HAL-true,3-MX_FDCAN1_Init-FDCAN1-false-HAL-true,4-MX_ADC2_Init-ADC2-false-HAL-true,5-MX_ADC1_Init-ADC1-false-HAL-true,6-MX_ADC3_Init-ADC3-false-HAL-true,7-MX_SPI1_Init-SPI1-false-HAL-true,8-MX_TIM1_Init-TIM1-false-HAL-true,9-MX_TIM3_Init-TIM3-false-HAL-true,10-MX_UART5_Init-UART5-false-HAL-true,11-MX_USART3_UART_Init-USART3-false-HAL-true,12-MX_TIM4_Init-TIM4-false-HAL-true,13-MX_TIM5_Init-TIM5-false-HAL-true,14-MX_TIM15_Init-TIM15-false-HAL-true
 RCC.AHBFreq_Value=16000000
 RCC.APB1Freq_Value=16000000
 RCC.APB1TimFreq_Value=16000000
@@ -495,18 +495,12 @@ TIM15.Channel-PWM\ Generation1\ CH1=TIM_CHANNEL_1
 TIM15.Channel-PWM\ Generation2\ CH2=TIM_CHANNEL_2
 TIM15.IPParameters=Channel-PWM Generation1 CH1,Channel-PWM Generation2 CH2
 TIM4.EncoderMode=TIM_ENCODERMODE_TI12
-<<<<<<< HEAD
-TIM4.IC1Filter=5
 TIM4.IC2Filter=5
-TIM4.IPParameters=EncoderMode,IC1Filter,IC2Filter
+TIM4.IPParameters=EncoderMode,IC2Filter
+TIM5.Channel-PWM\ Generation4\ CH4=TIM_CHANNEL_4
 TIM5.ICFilter_1=5
 TIM5.ICFilter_2=5
-TIM5.IPParameters=ICFilter_1,ICFilter_2
-=======
-TIM4.IPParameters=EncoderMode
-TIM5.Channel-PWM\ Generation4\ CH4=TIM_CHANNEL_4
-TIM5.IPParameters=Channel-PWM Generation4 CH4
->>>>>>> 5b976827532c26a2650476c63f0e399e23ae1726
+TIM5.IPParameters=Channel-PWM Generation4 CH4,ICFilter_1,ICFilter_2
 USART3.IPParameters=VirtualMode-Asynchronous
 USART3.VirtualMode-Asynchronous=VM_ASYNC
 VP_SYS_VS_DBSignals.Mode=DisableDeadBatterySignals
