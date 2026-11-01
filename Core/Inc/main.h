@@ -50,6 +50,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -80,6 +82,8 @@ void Error_Handler(void);
 #define SOB_S_GPIO_Port GPIOA
 #define SOC_S_Pin GPIO_PIN_2
 #define SOC_S_GPIO_Port GPIOA
+#define INHC_D_Pin GPIO_PIN_3
+#define INHC_D_GPIO_Port GPIOA
 #define Temp_Swer_Pin GPIO_PIN_4
 #define Temp_Swer_GPIO_Port GPIOA
 #define SCLK_Pin GPIO_PIN_5
@@ -108,20 +112,18 @@ void Error_Handler(void);
 #define ERR_LED_GPIO_Port GPIOE
 #define Temp_Drive_Pin GPIO_PIN_11
 #define Temp_Drive_GPIO_Port GPIOE
-#define INHA_D_Pin GPIO_PIN_13
-#define INHA_D_GPIO_Port GPIOE
-#define INHB_D_Pin GPIO_PIN_14
-#define INHB_D_GPIO_Port GPIOE
-#define INHC_D_Pin GPIO_PIN_15
-#define INHC_D_GPIO_Port GPIOE
+#define INLB_S_Pin GPIO_PIN_13
+#define INLB_S_GPIO_Port GPIOE
+#define INLC_S_Pin GPIO_PIN_14
+#define INLC_S_GPIO_Port GPIOE
 #define nFAULT_S_Pin GPIO_PIN_12
 #define nFAULT_S_GPIO_Port GPIOB
 #define INLA_S_Pin GPIO_PIN_13
 #define INLA_S_GPIO_Port GPIOB
-#define INLB_S_Pin GPIO_PIN_14
-#define INLB_S_GPIO_Port GPIOB
-#define INLC_S_Pin GPIO_PIN_15
-#define INLC_S_GPIO_Port GPIOB
+#define INHA_D_Pin GPIO_PIN_14
+#define INHA_D_GPIO_Port GPIOB
+#define INHB_D_Pin GPIO_PIN_15
+#define INHB_D_GPIO_Port GPIOB
 #define CAL_S_Pin GPIO_PIN_9
 #define CAL_S_GPIO_Port GPIOD
 #define CAL_D_Pin GPIO_PIN_10
