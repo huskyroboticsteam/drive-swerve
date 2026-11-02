@@ -17,7 +17,4 @@ void Quadrature_EncoderInit(Encoder_t *enc, TIM_HandleTypeDef *htim);
 void Quadrature_EncoderUpdate(Encoder_t *enc);
 int32_t Quadrature_GetPosition(Encoder_t *enc);
 
-int abs_pos();
-int incr_pos();
-
 #endif // __REV_THROUGHBORE_ENCODER_H
