@@ -49,6 +49,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Libraries/CAN26/Ports/PortSTM32g4xx.c
     Core/Src/rev_throughbore_encoder.c
     Core/Src/hall_encoders.c
+    Core/Src/commutation.c
 )
 
 # Add include paths

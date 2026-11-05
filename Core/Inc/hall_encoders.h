@@ -11,13 +11,19 @@
 #define HALL_ID_DRIVE 0
 #define HALL_ID_SWERVE 1
 
-typedef struct {
-    uint8_t a : 1;
-    uint8_t b : 1;
-    uint8_t c : 1;
-    uint8_t _padding : 5;
+// Tracks the most recent state of the hall encoder
+typedef union {
+    struct {
+        uint8_t a : 1;
+        uint8_t b : 1;
+        uint8_t c : 1;
+        uint8_t _padding : 5;
+    };
+    uint8_t state;
 } HallState_t;
 
+// Pinout information for a hall input
+// Timer should be set to XOR combine + have capture interrupt set
 typedef struct {
     TIM_HandleTypeDef *timer;
     GPIO_TypeDef *a_gpio;
@@ -30,6 +36,8 @@ typedef struct {
 
 typedef size_t HallId_t;
 
+// Tracks the last read value of the hall sensors
+// volatile to avoid issues with using interrupts
 extern volatile HallState_t Hall_States[HALL_COUNT];
 
 // Initializes a hall encoder
