@@ -21,6 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "hall_encoders.h"
+#include "CAN26/CAN26.h"
 
 /* USER CODE END Includes */
 
@@ -60,6 +62,11 @@ UART_HandleTypeDef huart5;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+CANHandle_t CANHandle = &hfdcan1;
+CANDevice_t CANDevice = {
+    .motorDomain = 1,
+    .deviceUUID = CAN_UUID_BLDC_FRONT_TIRE_LEFT
+};
 
 /* USER CODE END PV */
 
@@ -84,6 +91,13 @@ static void MX_TIM15_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// Sends a general acknowlegement packet with success
+static uint8_t SendAck(CANHandle_t CANHandle, const CANPacket_t *in_packet) {
+    CANDevice_t receiver = in_packet->device;
+    CANDevice_t sender = (CANDevice_t){.deviceUUID = in_packet->senderUUID};
+    CANPacket_t response = CANUniversalPacket_Acknowledge(receiver, sender, false, in_packet->command & 0x7F);
+    return CANSend(CANHandle, &response);
+}
 
 /* USER CODE END 0 */
 
@@ -148,12 +162,36 @@ int main(void)
             .c_gpio_pin = Hall_C_Swer_Pin
   });
 
+  CANInit(CANHandle, &CANDevice);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  while (1) {
+    CANPacket_t packet;
+    if (CANPollAndReceive(CANHandle, &packet)) {
+        int ack = packet.command & 0x80;
+        switch (packet.command & 0x7F) {
+            case CAN_COMMAND_ID__VERSION_GET: {
+                if (ack) {
+                    CANUniversalPacket_GetFirmwareVersion_Decoded_t decoded =
+                        CANUniversalPacket_GetFirmwareVersion_Decode(&packet);
+                    CANPacket_t response = CANUniversalPacket_FirmwareVersion(decoded.receiver, decoded.sender, "d&s", 0);
+                    CANSend(CANHandle, &response);
+
+                }
+                break;
+            }
+            case CAN_COMMAND_ID__E_STOP: {
+                // TODO: do estop things
+                if (ack) SendAck(CANHandle, &packet);
+                break;
+            }
+            // TODO: encoder packets
+            // TODO: bldc packets
+        }
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
