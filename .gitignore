@@ -54,7 +54,9 @@ dkms.conf
 # debug information files
 *.dwo
 
+# Other temporary and config files
 *.DS_Store
+*.swp
 build/
 config_default/
 
