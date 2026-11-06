@@ -36,9 +36,8 @@ typedef struct {
 
 typedef size_t HallId_t;
 
-// Tracks the last read value of the hall sensors
-// volatile to avoid issues with using interrupts
-extern volatile HallState_t Hall_States[HALL_COUNT];
+// Contains the config for all of the hall
+extern HallConfig_t Hall_configs[HALL_COUNT];
 
 // Initializes a hall encoder
 // Should not have null entries in the config
@@ -47,6 +46,6 @@ void Hall_Init(HallId_t id, HallConfig_t config);
 
 // Updates a hall encoder by reading GPIO
 // id should be in the range [0, HALL_COUNT)
-void Hall_Update(HallId_t id);
+HallState_t Hall_Update(HallId_t id);
 
 #endif // __HALL_ENCODERS_H

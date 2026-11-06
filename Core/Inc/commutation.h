@@ -5,26 +5,7 @@
 #include "hall_encoders.h"
 #include "stm32g4xx_hal.h"
 
-// Represents a possible state for an h-bridge
-// 3x pwm mode is used
-typedef enum {
-    GATE_HIZ = 0,
-    GATE_LOW,
-    GATE_HIGH,
-    GATE_PWM
-} GateState_t;
-
-// Tracks the full 3x pwm state
-typedef struct {
-    GateState_t a;
-    GateState_t b;
-    GateState_t c;
-} CommutationState_t;
-
-// Converts a hall state into the corresponding commutation pattern
-// Returns 3 states, one for each of the h-bridges
-// Might depend on the motor?
-CommutationState_t Commutation_GetGateState(HallState_t hall_state);
+#define GATE_DRIVER_COUNT 3
 
 typedef struct {
     TIM_HandleTypeDef *tim;
@@ -33,18 +14,19 @@ typedef struct {
     uint16_t lo_gpio_pin;
 } PWMPin_t;
 
-// Sets a hi+lo pin pair to the given gate state
-// If the gate state is pwm, the duty cycle is set to duty
-void Commutation_DrivePin(PWMPin_t pin, GateState_t state, float duty);
-
 typedef struct {
     PWMPin_t a;
     PWMPin_t b;
     PWMPin_t c;
 } GateDriver_t;
 
-// Combines the functionality of the above functions
-// Used to update all 6 pins based on the hall encoder
-void Commutation_UpdateGateDriver(GateDriver_t pins, HallState_t state, float duty);
+typedef size_t GateDriverId_t;
+
+// Updates the gate driver (using 3x pwm mode) based on the current hall state
+void Commutation_UpdateGateDriver(GateDriverId_t id, HallState_t state);
+
+void Commutation_Init(GateDriverId_t id, GateDriver_t config);
+
+void Commutation_SetDuty(GateDriverId_t id, float duty);
 
 #endif //__COMMUTATION_H
