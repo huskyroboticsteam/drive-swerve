@@ -49,6 +49,13 @@
 #define INHC_D_TIM (&htim5)
 #define INHC_D_TIM_CHANNEL (TIM_CHANNEL_4)
 
+#define INHA_S_TIM (&htim16)
+#define INHA_S_TIM_CHANNEL (TIM_CHANNEL_1)
+#define INHB_S_TIM (&htim17)
+#define INHB_S_TIM_CHANNEL (TIM_CHANNEL_1)
+#define INHC_S_TIM (&htim8)
+#define INHC_S_TIM_CHANNEL (TIM_CHANNEL_3)
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -196,6 +203,26 @@ int main(void)
                 .tim_channel = INHC_D_TIM_CHANNEL,
                 .lo_gpio = INLC_D_GPIO_Port,
                 .lo_gpio_pin = INLC_D_Pin
+            }
+  });
+  Commutation_Init(DRIVER_ID_SWERVE, (GateDriver_t){
+            .a = (PWMPin_t){
+                .tim = INHA_S_TIM,
+                .tim_channel = INHA_S_TIM_CHANNEL,
+                .lo_gpio = INLA_S_GPIO_Port,
+                .lo_gpio_pin = INLA_S_Pin
+            },
+            .b = (PWMPin_t){
+                .tim = INHB_S_TIM,
+                .tim_channel = INHB_S_TIM_CHANNEL,
+                .lo_gpio = INLB_S_GPIO_Port,
+                .lo_gpio_pin = INLB_S_Pin
+            },
+            .c = (PWMPin_t){
+                .tim = INHC_S_TIM,
+                .tim_channel = INHC_S_TIM_CHANNEL,
+                .lo_gpio = INLC_S_GPIO_Port,
+                .lo_gpio_pin = INLC_S_Pin
             }
   });
 
