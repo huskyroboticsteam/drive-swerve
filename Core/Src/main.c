@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "hall_encoders.h"
+#include "commutation.h"
 #include "CAN26/CAN26.h"
 
 /* USER CODE END Includes */
@@ -40,6 +41,13 @@
 /* USER CODE BEGIN PM */
 #define HALL_DRIVE_TIM (&htim3)
 #define HALL_SWERV_TIM (&htim1)
+
+#define INHA_D_TIM (&htim15)
+#define INHA_D_TIM_CHANNEL (TIM_CHANNEL_1)
+#define INHB_D_TIM (&htim15)
+#define INHB_D_TIM_CHANNEL (TIM_CHANNEL_2)
+#define INHC_D_TIM (&htim5)
+#define INHC_D_TIM_CHANNEL (TIM_CHANNEL_4)
 
 /* USER CODE END PM */
 
@@ -160,6 +168,26 @@ int main(void)
             .b_gpio_pin = Hall_B_Swer_Pin,
             .c_gpio = Hall_C_Swer_GPIO_Port,
             .c_gpio_pin = Hall_C_Swer_Pin
+  });
+  Commutation_Init(DRIVER_ID_DRIVE, (GateDriver_t){
+            .a = (PWMPin_t){
+                .tim = INHA_D_TIM,
+                .tim_channel = INHA_D_TIM_CHANNEL,
+                .lo_gpio = INLA_D_GPIO_Port,
+                .lo_gpio_pin = INLA_D_Pin
+            },
+            .b = (PWMPin_t){
+                .tim = INHB_D_TIM,
+                .tim_channel = INHB_D_TIM_CHANNEL,
+                .lo_gpio = INLB_D_GPIO_Port,
+                .lo_gpio_pin = INLB_D_Pin
+            },
+            .c = (PWMPin_t){
+                .tim = INHC_D_TIM,
+                .tim_channel = INHC_D_TIM_CHANNEL,
+                .lo_gpio = INLC_D_GPIO_Port,
+                .lo_gpio_pin = INLC_D_Pin
+            }
   });
 
   CANInit(CANHandle, &CANDevice);

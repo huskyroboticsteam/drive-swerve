@@ -7,6 +7,9 @@
 
 #define GATE_DRIVER_COUNT 3
 
+#define DRIVER_ID_DRIVE 0
+#define DRIVER_ID_SWERVE 1
+
 typedef struct {
     TIM_HandleTypeDef *tim;
     uint32_t tim_channel;
