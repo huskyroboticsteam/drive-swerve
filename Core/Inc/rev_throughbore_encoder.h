@@ -9,12 +9,20 @@ typedef struct {
     uint32_t last_counter;   // Previous hardware counter value
     uint32_t last_time_read;
     uint16_t delta_time;
-} Encoder_t;
+    float velocity;
+} Quadrature_Encoder_t;
 
-float PWM_To_Angle(uint32_t raw_duty, uint32_t min_duty, uint32_t max_duty, float min_angle, float max_angle);
+typedef struct {
+    TIM_HandleTypeDef *htim; // Pointer to the timer handle
+} Absolute_Encoder_t;
 
-void Quadrature_EncoderInit(Encoder_t *enc, TIM_HandleTypeDef *htim);
-void Quadrature_EncoderUpdate(Encoder_t *enc);
-int32_t Quadrature_GetPosition(Encoder_t *enc);
+// Absolute Encoder Functions
+void Absolute_EncoderInit(Absolute_Encoder_t *enc, TIM_HandleTypeDef *htim);
+float Absolute_Encoder_GetPosition(Absolute_Encoder_t *enc);
+
+// Quadrature Encoder Functions
+void Quadrature_EncoderInit(Quadrature_Encoder_t *enc, TIM_HandleTypeDef *htim);
+void Quadrature_EncoderUpdate(Quadrature_Encoder_t *enc);
+int32_t Quadrature_GetPosition(Quadrature_Encoder_t *enc);
 
 #endif // __REV_THROUGHBORE_ENCODER_H
