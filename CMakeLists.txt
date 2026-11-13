@@ -51,6 +51,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/hall_encoders.c
     Core/Src/commutation.c
     Core/Src/isrs.c
+    Core/Src/pid.c
 )
 
 # Add include paths
