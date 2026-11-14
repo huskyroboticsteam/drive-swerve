@@ -63,6 +63,8 @@ ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc2;
 ADC_HandleTypeDef hadc3;
 
+CORDIC_HandleTypeDef hcordic;
+
 FDCAN_HandleTypeDef hfdcan1;
 
 SPI_HandleTypeDef hspi1;
@@ -106,6 +108,7 @@ static void MX_TIM15_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_TIM17_Init(void);
+static void MX_CORDIC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -166,6 +169,7 @@ int main(void)
   MX_TIM8_Init();
   MX_TIM16_Init();
   MX_TIM17_Init();
+  MX_CORDIC_Init();
   /* USER CODE BEGIN 2 */
   Hall_Init(HALL_ID_DRIVE, (HallConfig_t){
             .timer = HALL_DRIVE_TIM,
@@ -227,6 +231,15 @@ int main(void)
   });
 
   CANInit(CANHandle, &CANDevice);
+
+  /* Configure CORDIC peripheral */
+  LL_CORDIC_Config(CORDIC, LL_CORDIC_FUNCTION_COSINE,
+		  	  	  	  	   LL_CORDIC_PRECISION_6CYCLES,
+						   LL_CORDIC_SCALE_0,
+						   LL_CORDIC_NBWRITE_1,
+						   LL_CORDIC_NBREAD_2,
+						   LL_CORDIC_INSIZE_16BITS,
+						   LL_CORDIC_OUTSIZE_16BITS);
 
   /* USER CODE END 2 */
 
@@ -495,6 +508,32 @@ static void MX_ADC3_Init(void)
   /* USER CODE BEGIN ADC3_Init 2 */
 
   /* USER CODE END ADC3_Init 2 */
+
+}
+
+/**
+  * @brief CORDIC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CORDIC_Init(void)
+{
+
+  /* USER CODE BEGIN CORDIC_Init 0 */
+
+  /* USER CODE END CORDIC_Init 0 */
+
+  /* USER CODE BEGIN CORDIC_Init 1 */
+
+  /* USER CODE END CORDIC_Init 1 */
+  hcordic.Instance = CORDIC;
+  if (HAL_CORDIC_Init(&hcordic) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CORDIC_Init 2 */
+
+  /* USER CODE END CORDIC_Init 2 */
 
 }
 
