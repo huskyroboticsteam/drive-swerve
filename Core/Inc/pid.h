@@ -2,6 +2,9 @@
 #ifndef DRIVE_SWERVE_CORE_SRC_PID_H_
 #define DRIVE_SWERVE_CORE_SRC_PID_H_
 
+#include <stdint.h>
+
+
 // PID Structure Definition
 typedef struct {
     float Kp, Ki, Kd;

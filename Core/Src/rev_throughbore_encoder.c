@@ -2,10 +2,10 @@
 
 // Absolute Encoder Constants
 
-Quadrature_Encoder_t *tim_list[1];
+volatile Quadrature_Encoder_t *tim_list[1];
 
-const static int16_t RISING_EDGE_CHANNEL = TIM_CHANNEL_1;
-const static int16_t FALLING_EDGE_CHANNEL = TIM_CHANNEL_2;
+static const int16_t RISING_EDGE_CHANNEL = TIM_CHANNEL_1;
+static const int16_t FALLING_EDGE_CHANNEL = TIM_CHANNEL_2;
 
 void Quadrature_EncoderInit(Quadrature_Encoder_t *enc, TIM_HandleTypeDef *htim) {
     enc->htim = htim;
@@ -63,9 +63,9 @@ float Absolute_Encoder_GetPosition(Absolute_Encoder_t *enc) {
     return duty * 360.0f;
 }
 
-void Quadrature_HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-
-	Quadrature_EncoderUpdate(&tim_list[0]);
-	float current_velocity = Quadrature_GetVelocity(&tim_list[0]);
-	&tim_list[0]->velocity = current_velocity;
+void Quadrature_HAL_TIM_PeriodElapsedCallback(int index) {
+	Quadrature_Encoder_t *tim = (Quadrature_Encoder_t *)tim_list[index];
+	Quadrature_EncoderUpdate(tim);
+	float current_velocity = Quadrature_GetVelocity(tim);
+	tim->velocity = current_velocity;
 }

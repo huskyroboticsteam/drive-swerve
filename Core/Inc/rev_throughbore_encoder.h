@@ -1,7 +1,10 @@
 #ifndef __REV_THROUGHBORE_ENCODER_H
 #define __REV_THROUGHBORE_ENCODER_H
 
+#include <stdint.h>
 #include "stm32g4xx_hal.h"
+
+#define QUADRATURE_COUNT 1
 
 typedef struct {
     TIM_HandleTypeDef *htim; // Pointer to the timer handle
@@ -11,6 +14,8 @@ typedef struct {
     uint16_t delta_time;
     float velocity;
 } Quadrature_Encoder_t;
+
+extern volatile Quadrature_Encoder_t *tim_list[QUADRATURE_COUNT];
 
 typedef struct {
     TIM_HandleTypeDef *htim; // Pointer to the timer handle
@@ -24,5 +29,6 @@ float Absolute_Encoder_GetPosition(Absolute_Encoder_t *enc);
 void Quadrature_EncoderInit(Quadrature_Encoder_t *enc, TIM_HandleTypeDef *htim);
 void Quadrature_EncoderUpdate(Quadrature_Encoder_t *enc);
 int32_t Quadrature_GetPosition(Quadrature_Encoder_t *enc);
+void Quadrature_HAL_TIM_PeriodElapsedCallback(int index);
 
 #endif // __REV_THROUGHBORE_ENCODER_H
