@@ -52,6 +52,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/commutation.c
     Core/Src/isrs.c
     Core/Src/pid.c
+    Core/Src/drv8323.c
 )
 
 # Add include paths
