@@ -3,13 +3,7 @@
 #define ENCODER_PPR 8192.0f // 2048 CPR * 4 edges
 #define PID_DT 0.001f // 1 ms execution step
 
-PID_Controller_t rotary_pid;
-
-// Tracking state variables
-int16_t last_encoder_count = 0;
-float current_rpm = 0.0f;
-float target_rpm = 1500.0f;    // Set your target speed here
-int16_t current_pwm_output = 0;
+PID_Controller_t pid;
 
 void PID_Init(PID_Controller_t *pid, float kp, float ki, float kd, float min, float max) {
 	pid->Kp = kp; pid->Ki = ki; pid->Kd = kd;
@@ -17,8 +11,9 @@ void PID_Init(PID_Controller_t *pid, float kp, float ki, float kd, float min, fl
 	pid->integral = 0.0f; pid->last_error = 0.0f;
 }
 
-float PID_Update(PID_Controller_t *pid, float target, float measured) {
-    float error = target - measured;
+float PID_Update(PID_Controller_t *pid, float measured) {
+	float setpoint = pid->setpoint;
+    float error = setpoint - measured;
 
     // Proportional term
     float P = pid->Kp * error;
