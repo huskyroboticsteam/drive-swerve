@@ -8,7 +8,6 @@
 // PID Structure Definition
 typedef struct {
     float Kp, Ki, Kd;
-    float setpoint;
     float integral;
     float last_error;
     float out_min, out_max;
