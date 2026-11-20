@@ -34,7 +34,7 @@ HAL_StatusTypeDef CurrentSense_Init(ADC_HandleTypeDef *hadc) {
 	uint32_t acc[3] = { 0 };
 	uint16_t raw[3];
 
-	if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK) return HAL_ERROR;
+	if (HAL_ADCEx_Calibration_Start(hadc, ADC_SINGLE_ENDED) != HAL_OK) return HAL_ERROR;
 
 	for (int n = 0; n < 64; n++) {
 		if (read_raw(hadc, raw) != HAL_OK) return HAL_ERROR;
@@ -64,11 +64,11 @@ HAL_StatusTypeDef CurrentSense_Update(ADC_HandleTypeDef *hadc) {
 }
 
 // Latest updated currents for A, B, and C
-float CurrentSense_GetPhaseCurrents(ADC_HandleTypeDef *hadc) {
+const volatile float *CurrentSense_GetPhaseCurrents(ADC_HandleTypeDef *hadc) {
 
 	if (hadc == NULL) return NULL;
 	ADC_CurrentSense_t *cs = find(hadc);
-	return (cs != NULL) ? cs->phase_currents : NULL;
+	return (cs != NULL) ? cs -> phase_currents : NULL;
 }
 
 

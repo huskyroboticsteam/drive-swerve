@@ -10,7 +10,7 @@
 #define DRIVER_ID_DRIVE 0u // might not need
 #define DRIVER_ID_SWERVE 1u // might not need
 
-#define PHASE_COUNT 3u // might not need
+#define PHASE_COUNT 3
 
 #define R_SHUNT      0.001f // 1 mohm shunt resistor, might need to  revisit
 #define CSA_GAIN     20.0f // might need to revisit along with shunt resistor
@@ -28,5 +28,6 @@ typedef struct {
 
 HAL_StatusTypeDef CurrentSense_Init(ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef CurrentSense_Get(ADC_HandleTypeDef *hadc);
+const volatile float *CurrentSense_GetPhaseCurrents(ADC_HandleTypeDef *hadc);
 
 #endif // CURRENT_SENSE_H
