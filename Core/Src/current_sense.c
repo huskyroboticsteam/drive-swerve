@@ -1,11 +1,10 @@
 #include <current_sense.h>
 
-static ADC_CurrentSense_t cs_table[CURRENT_SENSE_MAX];
+static ADC_CurrentSense_t cs_table[CURRENT_SENSE_MAX] = {0};
 
 static uint16_t adc_offset[PHASE_COUNT] = {2048, 2048, 2048};
 
-static ADC_CurrentSense_t *find(const ADC_HandleTypeDef *hadc)
-{
+static ADC_CurrentSense_t *find(const ADC_HandleTypeDef *hadc) {
     for (uint32_t i = 0; i < CURRENT_SENSE_MAX; i++) {
         if (cs_table[i].hadc == hadc) return &cs_table[i];
     }

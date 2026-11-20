@@ -12,7 +12,7 @@
 
 #define PHASE_COUNT 3u // might not need
 
-#define R_SHUNT      0.001f // 1 ohm shunt resistor, might need to  revisit
+#define R_SHUNT      0.001f // 1 mohm shunt resistor, might need to  revisit
 #define CSA_GAIN     20.0f // might need to revisit along with shunt resistor
 #define ADC_VREF     3.3f
 #define ADC_MAX_CNT  4096.0f
@@ -25,7 +25,7 @@ typedef struct {
     volatile float phase_currents[PHASE_COUNT];
 } ADC_CurrentSense_t;
 
-static HAL_StatusTypeDef read_raw(ADC_HandleTypeDef *hadc, uint16_t raw[3]);
+
 HAL_StatusTypeDef CurrentSense_Init(ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef CurrentSense_Get(ADC_HandleTypeDef *hadc);
 
