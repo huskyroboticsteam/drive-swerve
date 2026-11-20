@@ -78,6 +78,47 @@ typedef struct {
     uint16_t _reserved : 1;
 } Drv8323_Driver_Control_t;
 
+// Read/Write
+#define DRV8323_REG_GATE_DRIVE_HS 3
+typedef struct  {
+    uint16_t idriven_hs : 4; // negative current through high side gate driver, see datasheet for numerical mapping
+    uint16_t idrivep_hs : 4; // positive current through high side gate driver, see datasheet for numerical mapping
+    uint16_t lock : 3; // write 110b to lock settings, 011b to unlock
+} Drv8323_Gate_Drive_HS_t;
+
+// Read/Write
+#define DRV8323_REG_GATE_DRIVE_LS 4
+typedef struct {
+    uint16_t idriven_ls : 4; // negative current through low side gate driver, see datasheet for numerical mapping
+    uint16_t idrivep_ls : 4; // positive current through low side gate driver, see datasheet for numerical mapping
+    uint16_t tdrive : 2; // max drive time
+    uint16_t cbc : 1; // cycle by cycle operation, causes certain faults to be automatically reset with pwm input
+} Drv8323_GateDrive_LS_t;
+
+// Read/Write
+#define DRV8323_REG_OCP_CONTROL 5
+typedef struct {
+    uint16_t vds_lvl : 4; // see datasheet for numerical mapping
+    uint16_t ocp_deg : 2; // Overcurrent deglitch time
+    uint16_t ocp_mode : 2; // Type of fault triggered on overcurrent
+    uint16_t dead_time : 2; // Amount of dead time inserted into complementary pwm
+    uint16_t tretry : 1; // 0 - retry time of 4ms, 1 - retry time of 50us
+} Drv8323_OCP_Control_t;
+
+// Read/Write
+#define DRV8323_REG_CSA_CONTROL 6
+typedef struct {
+    uint16_t sen_lvl : 2; // Sense OCP level, see datasheet for values
+    uint16_t csa_cal_c : 1; // 1 = short inputs to CSA C for offset calibration
+    uint16_t csa_cal_b : 1; // 1 = short inputs to CSA B for offset calibration
+    uint16_t csa_cal_a : 1; // 1 = short inputs to CSA A for offset calibration
+    uint16_t dis_sen : 1; // 1 = disable sense overcurrent fault
+    uint16_t csa_gain : 2; // see datasheet for values
+    uint16_t ls_ref : 1;
+    uint16_t vref_div : 1; // 1 = CSA ref voltage is divided by 2
+    uint16_t csa_fet : 1; // changes what the CSA positive input is
+} Drv8323_CSA_Control_t;
+
 typedef size_t Drv8323Id_t;
 
 extern Drv8323_t Drv8323_configs[DRV8323_COUNT];
