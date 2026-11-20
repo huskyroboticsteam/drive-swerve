@@ -108,7 +108,7 @@ typedef union {
         uint16_t cbc : 1; // cycle by cycle operation, causes certain faults to be automatically reset with pwm input
     };
     uint16_t full_value;
-} Drv8323_GateDrive_LS_t;
+} Drv8323_Gate_Drive_LS_t;
 
 // Read/Write
 #define DRV8323_REG_OCP_CONTROL 5
