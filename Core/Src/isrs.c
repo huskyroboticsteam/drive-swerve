@@ -1,6 +1,8 @@
 #include "hall_encoders.h"
 #include "commutation.h"
 #include "rev_throughbore_encoder.h"
+#include "drv8323.h"
+#include "main.h"
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
@@ -24,3 +26,24 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 //		return;
 //	}
 }
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  uint16_t reg1;
+  uint16_t reg2;
+  switch(GPIO_Pin) {
+  	case nFAULT_D_Pin:
+  	  Commutation_SetDuty(DRIVER_ID_DRIVE, 0);
+  	  reg1 = Drv8323_GetRegister(DRV8323_ID_DRIVE, DRV8323_REG_FAULT_STATUS_1);
+  	  reg2 = Drv8323_GetRegister(DRV8323_ID_DRIVE, DRV8323_REG_FAULT_STATUS_2);
+	  break;
+    case nFAULT_S_Pin:
+      Commutation_SetDuty(DRIVER_ID_SWERVE, 0);
+      reg1 = Drv8323_GetRegister(DRV8323_ID_SWERVE, DRV8323_REG_FAULT_STATUS_1);
+      reg2 = Drv8323_GetRegister(DRV8323_ID_SWERVE, DRV8323_REG_FAULT_STATUS_2);
+	  break;
+    default:
+
+  }
+}
+

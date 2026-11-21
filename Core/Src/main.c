@@ -1294,11 +1294,11 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, CAL_S_Pin|CAL_D_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : Index_Swer_Encoder_Pin */
-  GPIO_InitStruct.Pin = Index_Swer_Encoder_Pin;
+  /*Configure GPIO pins : Index_Swer_Encoder_Pin nFAULT_D_Pin */
+  GPIO_InitStruct.Pin = Index_Swer_Encoder_Pin|nFAULT_D_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(Index_Swer_Encoder_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ENABLE_S_Pin ENABLE_D_Pin CS_S_Pin SW0_Pin
                            SW1_Pin INLA_D_Pin INLB_D_Pin */
@@ -1334,7 +1334,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : nFAULT_S_Pin */
   GPIO_InitStruct.Pin = nFAULT_S_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(nFAULT_S_GPIO_Port, &GPIO_InitStruct);
 
@@ -1345,11 +1345,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : nFAULT_D_Pin */
-  GPIO_InitStruct.Pin = nFAULT_D_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(nFAULT_D_GPIO_Port, &GPIO_InitStruct);
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
