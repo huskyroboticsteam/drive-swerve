@@ -3,6 +3,7 @@
 #include "rev_throughbore_encoder.h"
 #include "drv8323.h"
 #include "main.h"
+#include <stdio.h>
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
@@ -29,21 +30,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  uint16_t reg1;
-  uint16_t reg2;
-  switch(GPIO_Pin) {
-  	case nFAULT_D_Pin:
-  	  Commutation_SetDuty(DRIVER_ID_DRIVE, 0);
-  	  reg1 = Drv8323_GetRegister(DRV8323_ID_DRIVE, DRV8323_REG_FAULT_STATUS_1);
-  	  reg2 = Drv8323_GetRegister(DRV8323_ID_DRIVE, DRV8323_REG_FAULT_STATUS_2);
-	  break;
-    case nFAULT_S_Pin:
-      Commutation_SetDuty(DRIVER_ID_SWERVE, 0);
-      reg1 = Drv8323_GetRegister(DRV8323_ID_SWERVE, DRV8323_REG_FAULT_STATUS_1);
-      reg2 = Drv8323_GetRegister(DRV8323_ID_SWERVE, DRV8323_REG_FAULT_STATUS_2);
-	  break;
-    default:
-
+  for (int i = 0; i < DRV8323_COUNT; i++) {
+	  if (GPIO_Pin == Drv8323_configs[i].fault_pin) {
+		  Commutation_SetDuty(i, 0);
+		  uint16_t reg1 = Drv8323_GetRegister(i, DRV8323_REG_FAULT_STATUS_1);
+		  uint16_t reg2 = Drv8323_GetRegister(i, DRV8323_REG_FAULT_STATUS_2);
+		  uint8_t output[] = "(id: x) fault registers: xxxx xxxx\r\n";
+		  sprintf((char*)output, "(id: %d) fault registers: %04x %04x\r\n", i, reg1, reg2);
+		  HAL_UART_Transmit(&huart5, output, sizeof(output)-1, 100);
+	  }
   }
 }
 
