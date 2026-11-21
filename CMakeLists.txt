@@ -53,6 +53,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/isrs.c
     Core/Src/pid.c
     Core/Src/drv8323.c
+    Core/Src/current_sense.c
 )
 
 # Add include paths

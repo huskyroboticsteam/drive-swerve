@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "hall_encoders.h"
 #include "commutation.h"
+#include "drv8323.h"
 #include "CAN26/CAN26.h"
 
 /* USER CODE END Includes */
@@ -230,6 +231,25 @@ int main(void)
             }
   });
 
+  Drv8323_Init(DRV8323_ID_DRIVE, (Drv8323_t){
+            .spi = &hspi1,
+            .cs_gpio = CS_D_GPIO_Port,
+            .cs_pin = CS_D_Pin,
+            .enable_gpio = ENABLE_D_GPIO_Port,
+            .enable_pin = ENABLE_D_Pin,
+            .fault_gpio = nFAULT_D_GPIO_Port,
+            .fault_pin = nFAULT_D_Pin
+  });
+  Drv8323_Init(DRV8323_ID_SWERVE, (Drv8323_t){
+            .spi = &hspi1,
+            .cs_gpio = CS_S_GPIO_Port,
+            .cs_pin = CS_S_Pin,
+            .enable_gpio = ENABLE_S_GPIO_Port,
+            .enable_pin = ENABLE_S_Pin,
+            .fault_gpio = nFAULT_S_GPIO_Port,
+            .fault_pin = nFAULT_S_Pin
+  });
+
   CANInit(CANHandle, &CANDevice);
 
   /* Configure CORDIC peripheral */
@@ -240,6 +260,12 @@ int main(void)
 						   LL_CORDIC_NBREAD_2,
 						   LL_CORDIC_INSIZE_16BITS,
 						   LL_CORDIC_OUTSIZE_16BITS);
+
+  // Start commutation (duty cycle of 0 at start)
+  HallState_t drive_state = Hall_Update(HALL_ID_DRIVE);
+  Commutation_UpdateGateDriver(DRIVER_ID_DRIVE, drive_state);
+  HallState_t swerve_state = Hall_Update(HALL_ID_SWERVE);
+  Commutation_UpdateGateDriver(DRIVER_ID_SWERVE, swerve_state);
 
   /* USER CODE END 2 */
 
