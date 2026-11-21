@@ -261,6 +261,12 @@ int main(void)
 						   LL_CORDIC_INSIZE_16BITS,
 						   LL_CORDIC_OUTSIZE_16BITS);
 
+  // Start commutation (duty cycle of 0 at start)
+  HallState_t drive_state = Hall_Update(HALL_ID_DRIVE);
+  Commutation_UpdateGateDriver(DRIVER_ID_DRIVE, drive_state);
+  HallState_t swerve_state = Hall_Update(HALL_ID_SWERVE);
+  Commutation_UpdateGateDriver(DRIVER_ID_SWERVE, swerve_state);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
