@@ -61,7 +61,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Index_Swer_Encoder_Pin GPIO_PIN_13
 #define Index_Swer_Encoder_GPIO_Port GPIOC
-#define Index_Swer_Encoder_EXTI_IRQn EXTI15_10_IRQn
 #define ENABLE_S_Pin GPIO_PIN_14
 #define ENABLE_S_GPIO_Port GPIOC
 #define ENABLE_D_Pin GPIO_PIN_15
@@ -82,8 +81,6 @@ void Error_Handler(void);
 #define SOB_S_GPIO_Port GPIOA
 #define SOC_S_Pin GPIO_PIN_2
 #define SOC_S_GPIO_Port GPIOA
-#define INHC_D_Pin GPIO_PIN_3
-#define INHC_D_GPIO_Port GPIOA
 #define Temp_Swer_Pin GPIO_PIN_4
 #define Temp_Swer_GPIO_Port GPIOA
 #define SCLK_Pin GPIO_PIN_5
@@ -118,7 +115,6 @@ void Error_Handler(void);
 #define INLC_S_GPIO_Port GPIOE
 #define nFAULT_S_Pin GPIO_PIN_12
 #define nFAULT_S_GPIO_Port GPIOB
-#define nFAULT_S_EXTI_IRQn EXTI15_10_IRQn
 #define INLA_S_Pin GPIO_PIN_13
 #define INLA_S_GPIO_Port GPIOB
 #define INHA_D_Pin GPIO_PIN_14
@@ -137,7 +133,6 @@ void Error_Handler(void);
 #define Hall_C_Drive_GPIO_Port GPIOC
 #define nFAULT_D_Pin GPIO_PIN_9
 #define nFAULT_D_GPIO_Port GPIOC
-#define nFAULT_D_EXTI_IRQn EXTI9_5_IRQn
 #define Hall_A_Swer_Pin GPIO_PIN_8
 #define Hall_A_Swer_GPIO_Port GPIOA
 #define Hall_B_Swer_Pin GPIO_PIN_9
