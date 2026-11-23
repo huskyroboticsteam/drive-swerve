@@ -4,7 +4,8 @@ HallConfig_t Hall_configs[HALL_COUNT] = {0};
 
 void Hall_Init(HallId_t id, HallConfig_t config) {
     Hall_configs[id] = config;
-    HAL_TIMEx_HallSensor_Start(config.timer);
+    HAL_TIM_IC_Start_IT(config.timer1, config.timer1_channel);
+    HAL_TIM_IC_Start_IT(config.timer2, config.timer2_channel);
 }
 
 HallState_t Hall_Update(HallId_t id) {

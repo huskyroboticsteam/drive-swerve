@@ -6,9 +6,8 @@
 #include <stdio.h>
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-
     for (HallId_t i = 0; i < HALL_COUNT; ++i) {
-        if (htim == Hall_configs[i].timer) {
+        if (htim == Hall_configs[i].timer1 || htim == Hall_configs[i].timer2) {
             HallState_t state = Hall_Update(i);
             Commutation_UpdateGateDriver(i, state);
         }
@@ -39,6 +38,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		  sprintf((char*)output, "(id: %d) fault registers: %04x %04x\r\n", i, reg1, reg2);
 		  HAL_UART_Transmit(&huart5, output, sizeof(output)-1, 100);
 	  }
+  }
+  for (int i = 0; i < HALL_COUNT; ++i) {
+      if (GPIO_Pin == Hall_configs[i].c_gpio_pin) {
+          HallState_t state = Hall_Update(i);
+          Commutation_UpdateGateDriver(i, state);
+      }
   }
 }
 

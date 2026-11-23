@@ -23,9 +23,13 @@ typedef union {
 } HallState_t;
 
 // Pinout information for a hall input
-// Timer should be set to XOR combine + have capture interrupt set
+// First 2 gpios should be assigned to timer1 and timer2 respectively
+// Third gpio should have exti interrupt set
 typedef struct {
-    TIM_HandleTypeDef *timer;
+    TIM_HandleTypeDef *timer1; // interrupt on either of these triggers update
+    uint32_t timer1_channel;
+    TIM_HandleTypeDef *timer2;
+    uint32_t timer2_channel;
     GPIO_TypeDef *a_gpio;
     uint16_t a_gpio_pin;
     GPIO_TypeDef *b_gpio;

@@ -40,8 +40,14 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define HALL_DRIVE_TIM (&htim3)
-#define HALL_SWERV_TIM (&htim1)
+#define HALL_DRIVE_TIM1 (&htim8)
+#define HALL_DRIVE_TIM1_CHANNEL (TIM_CHANNEL_1)
+#define HALL_DRIVE_TIM2 (&htim8)
+#define HALL_DRIVE_TIM2_CHANNEL (TIM_CHANNEL_2)
+#define HALL_SWERV_TIM1 (&htim1)
+#define HALL_SWERV_TIM1_CHANNEL (TIM_CHANNEL_1)
+#define HALL_SWERV_TIM2 (&htim2)
+#define HALL_SWERV_TIM2_CHANNEL (TIM_CHANNEL_3)
 
 #define INHA_D_TIM (&htim1)
 #define INHA_D_TIM_CHANNEL (TIM_CHANNEL_2)
@@ -167,7 +173,10 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   Hall_Init(HALL_ID_DRIVE, (HallConfig_t){
-            .timer = HALL_DRIVE_TIM,
+            .timer1 = HALL_DRIVE_TIM1,
+            .timer1_channel = HALL_DRIVE_TIM1_CHANNEL,
+            .timer2 = HALL_DRIVE_TIM2,
+            .timer2_channel = HALL_DRIVE_TIM2_CHANNEL,
             .a_gpio = Hall_A_Drive_GPIO_Port,
             .a_gpio_pin = Hall_A_Drive_Pin,
             .b_gpio = Hall_B_Drive_GPIO_Port,
@@ -176,7 +185,10 @@ int main(void)
             .c_gpio_pin = Hall_C_Drive_Pin
   });
   Hall_Init(HALL_ID_SWERVE, (HallConfig_t){
-            .timer = HALL_SWERV_TIM,
+            .timer1 = HALL_SWERV_TIM1,
+            .timer1_channel = HALL_DRIVE_TIM1_CHANNEL,
+            .timer2 = HALL_SWERV_TIM2,
+            .timer2_channel = HALL_DRIVE_TIM2_CHANNEL,
             .a_gpio = Hall_A_Swer_GPIO_Port,
             .a_gpio_pin = Hall_A_Swer_Pin,
             .b_gpio = Hall_B_Swer_GPIO_Port,
