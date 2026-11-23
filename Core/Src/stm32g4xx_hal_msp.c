@@ -58,7 +58,7 @@
 /* USER CODE END 0 */
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-                                                            /**
+                                                                                /**
   * Initializes the Global MSP.
   */
 void HAL_MspInit(void)
@@ -675,6 +675,27 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
 
     /* USER CODE END TIM1_MspPostInit 1 */
   }
+  else if(htim->Instance==TIM2)
+  {
+    /* USER CODE BEGIN TIM2_MspPostInit 0 */
+
+    /* USER CODE END TIM2_MspPostInit 0 */
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    /**TIM2 GPIO Configuration
+    PA3     ------> TIM2_CH4
+    */
+    GPIO_InitStruct.Pin = INHC_D_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
+    HAL_GPIO_Init(INHC_D_GPIO_Port, &GPIO_InitStruct);
+
+    /* USER CODE BEGIN TIM2_MspPostInit 1 */
+
+    /* USER CODE END TIM2_MspPostInit 1 */
+  }
   else if(htim->Instance==TIM3)
   {
     /* USER CODE BEGIN TIM3_MspPostInit 0 */
@@ -760,9 +781,10 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     __HAL_RCC_TIM2_CLK_DISABLE();
 
     /**TIM2 GPIO Configuration
+    PA3     ------> TIM2_CH4
     PA9     ------> TIM2_CH3
     */
-    HAL_GPIO_DeInit(Hall_B_Swer_GPIO_Port, Hall_B_Swer_Pin);
+    HAL_GPIO_DeInit(GPIOA, INHC_D_Pin|Hall_B_Swer_Pin);
 
     /* TIM2 interrupt DeInit */
     HAL_NVIC_DisableIRQ(TIM2_IRQn);

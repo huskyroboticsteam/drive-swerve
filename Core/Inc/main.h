@@ -81,6 +81,8 @@ void Error_Handler(void);
 #define SOB_S_GPIO_Port GPIOA
 #define SOC_S_Pin GPIO_PIN_2
 #define SOC_S_GPIO_Port GPIOA
+#define INHC_D_Pin GPIO_PIN_3
+#define INHC_D_GPIO_Port GPIOA
 #define Temp_Swer_Pin GPIO_PIN_4
 #define Temp_Swer_GPIO_Port GPIOA
 #define SCLK_Pin GPIO_PIN_5
