@@ -26,6 +26,7 @@ typedef struct {
 } parkCurrents_t;
 
 inline static clarkeCurrents_t clarkeTransform(float a, float b, float c) {
+    UNUSED(c);
 	return (clarkeCurrents_t){a, (a + 2 * b)*(1/sqrtf(3))};
 }
 
