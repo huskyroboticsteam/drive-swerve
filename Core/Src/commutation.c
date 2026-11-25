@@ -26,15 +26,15 @@ void Commutation_DrivePin(PWMPin_t pin, GateState_t state, float duty) {
             HAL_GPIO_WritePin(pin.lo_gpio, pin.lo_gpio_pin, GPIO_PIN_RESET);
             break;
         case GATE_LOW:
-            pin.tim->Instance->CCR1 = 0; // Set duty cycle to 0
+            __HAL_TIM_SET_COMPARE(pin.tim, pin.tim_channel, 0); // Set duty cycle to 0
             HAL_GPIO_WritePin(pin.lo_gpio, pin.lo_gpio_pin, GPIO_PIN_SET);
             break;
         case GATE_HIGH:
-            pin.tim->Instance->CCR1 = pin.tim->Instance->ARR + 1; // Set duty cycle to 100
+            __HAL_TIM_SET_COMPARE(pin.tim, pin.tim_channel, pin.tim->Instance->ARR + 1); // Set duty cycle to 100
             HAL_GPIO_WritePin(pin.lo_gpio, pin.lo_gpio_pin, GPIO_PIN_SET);
             break;
         case GATE_PWM:
-            pin.tim->Instance->CCR1 = duty * (pin.tim->Instance->ARR + 1);
+            __HAL_TIM_SET_COMPARE(pin.tim, pin.tim_channel, duty * (pin.tim->Instance->ARR + 1));
             HAL_GPIO_WritePin(pin.lo_gpio, pin.lo_gpio_pin, GPIO_PIN_SET);
             break;
     }

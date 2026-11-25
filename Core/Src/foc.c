@@ -19,8 +19,8 @@ void Foc_motor_init(FocMotorId_t id, FocMotor_Config_t config) {
     result.iq_pid.setpoint = 0;
     result.id_pid.setpoint = 0;
     // Start pid counters at 0 (force first iteration to do pid)
-    result.velocity_pid_counter = 0;
-    result.position_pid_counter = 0;
+    result.velocity_pid_counter = 1;
+    result.position_pid_counter = 1;
 
     result.current_sense = config.current_sense;
     result.gate_driver = config.pwm_pins;
