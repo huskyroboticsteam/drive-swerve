@@ -74,8 +74,6 @@ target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE
     -Wall
     -Wextra
     -pedantic
-    # remove -Os for better debugging, might cause code to not fit in flash
-    -Os
 )
 
 # Remove wrong libob.a library dependency when using cpp files
@@ -87,3 +85,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+
+set(CMAKE_C_FLAGS_RELEASE "-O3 -flto")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -flto")
