@@ -32,4 +32,17 @@ void Commutation_Init(GateDriverId_t id, GateDriver_t config);
 
 void Commutation_SetDuty(GateDriverId_t id, float duty);
 
+// Represents a possible state for an h-bridge
+// 3x pwm mode is used
+typedef enum {
+    GATE_HIZ = 0,
+    GATE_LOW,
+    GATE_HIGH,
+    GATE_PWM
+} GateState_t;
+
+// Sets a hi+lo pin pair to the given gate state
+// If the gate state is pwm, the duty cycle is set to duty
+void Commutation_DrivePin(PWMPin_t pin, GateState_t state, float duty);
+
 #endif //__COMMUTATION_H

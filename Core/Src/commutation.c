@@ -1,14 +1,5 @@
 #include "commutation.h"
 
-// Represents a possible state for an h-bridge
-// 3x pwm mode is used
-typedef enum {
-    GATE_HIZ = 0,
-    GATE_LOW,
-    GATE_HIGH,
-    GATE_PWM
-} GateState_t;
-
 GateDriver_t configs[GATE_DRIVER_COUNT] = {0};
 
 // Current duty cycle being ran at, updated via set duty cycle
@@ -29,9 +20,7 @@ const GateState_t commutation_map[8][3] = {
     {GATE_HIZ, GATE_HIZ, GATE_HIZ}  //0b111
 };
 
-// Sets a hi+lo pin pair to the given gate state
-// If the gate state is pwm, the duty cycle is set to duty
-static void Commutation_DrivePin(PWMPin_t pin, GateState_t state, float duty) {
+void Commutation_DrivePin(PWMPin_t pin, GateState_t state, float duty) {
     switch (state) {
         case GATE_HIZ:
             HAL_GPIO_WritePin(pin.lo_gpio, pin.lo_gpio_pin, GPIO_PIN_RESET);

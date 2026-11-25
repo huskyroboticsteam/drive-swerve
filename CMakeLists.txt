@@ -54,6 +54,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/pid.c
     Core/Src/drv8323.c
     Core/Src/current_sense.c
+    Core/Src/foc.c
 )
 
 # Add include paths
