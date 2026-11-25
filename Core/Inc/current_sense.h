@@ -3,12 +3,7 @@
 
 #include <stdint.h>
 #include "stm32g4xx_hal.h"
-
-#define CURRENT_SENSE_MAX 2u // translation + rotation
-#define GATE_DRIVER_COUNT 3u
-
-#define DRIVER_ID_DRIVE 0u // might not need
-#define DRIVER_ID_SWERVE 1u // might not need
+#include "commutation.h"
 
 #define PHASE_COUNT 3
 

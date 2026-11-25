@@ -1,11 +1,11 @@
 #include <current_sense.h>
 
-static ADC_CurrentSense_t cs_table[CURRENT_SENSE_MAX] = {0};
+static ADC_CurrentSense_t cs_table[GATE_DRIVER_COUNT] = {0};
 
 static uint16_t adc_offset[PHASE_COUNT] = {2048, 2048, 2048};
 
 static ADC_CurrentSense_t *find(const ADC_HandleTypeDef *hadc) {
-    for (uint32_t i = 0; i < CURRENT_SENSE_MAX; i++) {
+    for (uint32_t i = 0; i < GATE_DRIVER_COUNT; i++) {
         if (cs_table[i].hadc == hadc) return &cs_table[i];
     }
     return NULL;

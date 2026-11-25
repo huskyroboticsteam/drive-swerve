@@ -5,7 +5,7 @@
 #include "hall_encoders.h"
 #include "stm32g4xx_hal.h"
 
-#define GATE_DRIVER_COUNT 3
+#define GATE_DRIVER_COUNT 2
 
 #define DRIVER_ID_DRIVE 0
 #define DRIVER_ID_SWERVE 1
