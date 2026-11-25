@@ -21,12 +21,22 @@ void Foc_motor_init(FocMotorId_t id, FocMotor_Config_t config) {
     // Start pid counters at 0 (force first iteration to do pid)
     result.velocity_pid_counter = 0;
     result.position_pid_counter = 0;
-    
+
+    // Set state to hi-z
+    Commutation_DrivePin(result.gate_driver.a, GATE_HIZ, 0);
+    Commutation_DrivePin(result.gate_driver.b, GATE_HIZ, 0);
+    Commutation_DrivePin(result.gate_driver.c, GATE_HIZ, 0);
+
     result.current_sense = config.current_sense;
     result.gate_driver = config.pwm_pins;
     result.position_control = false;
     result.enabled = false;
     Foc_motors[id] = result;
+
+    // Start pwm
+    HAL_TIM_PWM_Start(result.gate_driver.a.tim, result.gate_driver.a.tim_channel);
+    HAL_TIM_PWM_Start(result.gate_driver.b.tim, result.gate_driver.b.tim_channel);
+    HAL_TIM_PWM_Start(result.gate_driver.c.tim, result.gate_driver.c.tim_channel);
 }
 
 // note that NaN doesn't behave correctly here
@@ -82,6 +92,7 @@ void Foc_motor_step(FocMotorId_t id) {
     rawCurrents_t duties = inverseClarke(clarke_duties.a, clarke_duties.b);
 
     // svpwm
+    // pwm is center aligned and all are in phase
     duties.a = clamp(duties.a, 0, 0.95);
     duties.b = clamp(duties.b, 0, 0.95);
     duties.c = clamp(duties.c, 0, 0.95);
